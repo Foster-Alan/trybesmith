@@ -1,4 +1,5 @@
 import ProductsModel from '../models/ProductsModel';
+import { IPostProduct } from '../interfaces/productsInterface';
 
 export default class ProductsService {
   model: ProductsModel;
@@ -10,5 +11,11 @@ export default class ProductsService {
   async getAllProducts() {
     const arrRows = await this.model.getAll();
     return arrRows;
+  }
+
+  async postProduct(postObj: IPostProduct) {
+    const { name, amount } = postObj;
+    const id = await this.model.postProduct(postObj);
+    return { id, name, amount };
   }
 }
